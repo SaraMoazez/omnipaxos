@@ -9,9 +9,10 @@ use crate::{
 use hocon::Hocon;
 use messages::{BLEMessage, HeartbeatMsg, HeartbeatReply, HeartbeatRequest};
 use slog::{debug, info, trace, warn, Logger};
+use serde::{Serialize, Deserialize};
 
 /// Used to define an epoch
-#[derive(Clone, Copy, Eq, Debug, Default, Ord, PartialOrd, PartialEq)]
+#[derive(Clone, Copy, Eq, Debug, Default, Ord, PartialOrd, PartialEq, Serialize, Deserialize)]
 pub struct Ballot {
     /// Ballot number
     pub n: u32,
