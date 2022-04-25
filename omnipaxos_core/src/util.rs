@@ -4,6 +4,7 @@ use super::{
     storage::{Entry, Snapshot, SnapshotType, StopSign},
 };
 use std::{cmp::Ordering, fmt::Debug, marker::PhantomData};
+use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Clone, Default)]
 /// Promise without the suffix
@@ -192,7 +193,7 @@ where
 
 /// Item used for log synchronization in the Prepare phase.
 #[allow(missing_docs)]
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub enum SyncItem<T, S>
 where
     T: Entry,
