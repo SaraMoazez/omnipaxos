@@ -16,6 +16,7 @@ hocon = "0.5.2"
 kompact = { git = "https://github.com/kompics/kompact", rev = "94956af", features = ["silent_logging"]}
 serial_test = "0.5.1"
 rand = "0.8.4"
+serde = { version = "1.0", features = ["derive"] }
 
 [features]
 batch_accept = []
