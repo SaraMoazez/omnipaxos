@@ -266,17 +266,18 @@ impl BallotLeaderElection {
 /// The different messages BLE uses to communicate with other replicas.
 pub mod messages {
     use crate::ballot_leader_election::Ballot;
+    use serde::{Serialize, Deserialize};
 
     /// An enum for all the different BLE message types.
     #[allow(missing_docs)]
-    #[derive(Clone, Debug)]
+    #[derive(Clone, Debug, Serialize, Deserialize)]
     pub enum HeartbeatMsg {
         Request(HeartbeatRequest),
         Reply(HeartbeatReply),
     }
 
     /// Requests a reply from all the other replicas.
-    #[derive(Clone, Debug)]
+    #[derive(Clone, Debug, Serialize, Deserialize)]
     pub struct HeartbeatRequest {
         /// Number of the current round.
         pub round: u32,
@@ -292,7 +293,7 @@ pub mod messages {
     }
 
     /// Replies
-    #[derive(Clone, Debug)]
+    #[derive(Clone, Debug, Serialize, Deserialize)]
     pub struct HeartbeatReply {
         /// Number of the current round.
         pub round: u32,
@@ -318,7 +319,7 @@ pub mod messages {
     }
 
     /// A struct for a Paxos message that also includes sender and receiver.
-    #[derive(Clone, Debug)]
+    #[derive(Clone, Debug, Serialize, Deserialize)]
     pub struct BLEMessage {
         /// Sender of `msg`.
         pub from: u64,
