@@ -4,9 +4,10 @@ use super::{
     util::SyncItem,
 };
 use std::fmt::Debug;
+use serde::{Serialize, Deserialize};
 
 /// Prepare message sent by a newly-elected leader to initiate the Prepare phase.
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct Prepare {
     /// The current round.
     pub n: Ballot,
@@ -31,7 +32,7 @@ impl Prepare {
 }
 
 /// Promise message sent by a follower in response to a [`Prepare`] sent by the leader.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Promise<T, S>
 where
     T: Entry,
@@ -77,7 +78,7 @@ where
 }
 
 /// AcceptSync message sent by the leader to synchronize the logs of all replicas in the prepare phase.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct AcceptSync<T, S>
 where
     T: Entry,
@@ -119,7 +120,7 @@ where
 }
 
 /// The first accept message sent. Only used by a pre-elected leader after reconfiguration.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct FirstAccept {
     /// The current round.
     pub n: Ballot,
@@ -133,7 +134,7 @@ impl FirstAccept {
 }
 
 /// Message with entries to be replicated and the latest decided index sent by the leader in the accept phase.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct AcceptDecide<T>
 where
     T: Entry,
@@ -157,7 +158,7 @@ where
 }
 
 /// Message sent by follower to leader when entries has been accepted.
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct Accepted {
     /// The current round.
     pub n: Ballot,
@@ -173,7 +174,7 @@ impl Accepted {
 }
 
 /// Message sent by leader to followers to decide up to a certain index in the log.
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct Decide {
     /// The current round.
     pub n: Ballot,
@@ -189,7 +190,7 @@ impl Decide {
 }
 
 /// Message sent by leader to followers to accept a StopSign
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct AcceptStopSign {
     /// The current round.
     pub n: Ballot,
@@ -205,7 +206,7 @@ impl AcceptStopSign {
 }
 
 /// Message sent by followers to leader when accepted StopSign
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct AcceptedStopSign {
     /// The current round.
     pub n: Ballot,
@@ -219,7 +220,7 @@ impl AcceptedStopSign {
 }
 
 /// Message sent by leader to decide a StopSign
-#[derive(Copy, Clone, Debug)]
+#[derive(Copy, Clone, Debug, Serialize, Deserialize)]
 pub struct DecideStopSign {
     /// The current round.
     pub n: Ballot,
@@ -234,7 +235,7 @@ impl DecideStopSign {
 
 /// Compaction Request
 #[allow(missing_docs)]
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub enum Compaction {
     Trim(Option<u64>),
     Snapshot(u64),
@@ -242,7 +243,7 @@ pub enum Compaction {
 
 /// An enum for all the different message types.
 #[allow(missing_docs)]
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub enum PaxosMsg<T, S>
 where
     T: Entry,
@@ -269,7 +270,7 @@ where
 }
 
 /// A struct for a Paxos message that also includes sender and receiver.
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Message<T, S>
 where
     T: Entry,
