@@ -172,6 +172,10 @@ impl BallotLeaderElection {
             .unwrap_or_default();
 
         if top_ballot < self.leader.unwrap_or_default() {
+            debug!(
+                self.logger,
+                "BLE {} did not get heartbeat from leader", self.pid
+            );
             // did not get HB from leader
             self.current_ballot.n = self.leader.unwrap_or_default().n + 1;
             self.leader = None;
