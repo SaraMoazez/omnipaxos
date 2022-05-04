@@ -48,7 +48,7 @@ pub struct BallotLeaderElection {
     /// Holds the current ballot of this instance.
     current_ballot: Ballot, // (round, pid)
     /// States if the instance is a candidate to become a leader.
-    pub majority_connected: bool,
+    majority_connected: bool,
     /// Current elected leader.
     leader: Option<Ballot>,
     /// Internal delay used for timeout.
